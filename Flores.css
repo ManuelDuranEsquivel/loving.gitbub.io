@@ -1,0 +1,240 @@
+body {
+  background: linear-gradient(180deg, #4a5766 0%, #2a3640 100%);
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#jardin {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Contenedor de cada flor */
+.flor-contenedor {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  bottom: 0;
+  transform-origin: bottom center;
+  animation: balanceo 6s ease-in-out infinite;
+  animation-delay: calc(var(--delay) * 1s);
+}
+
+/* Animación balanceo suave */
+@keyframes balanceo {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(6px) rotate(3deg);
+  }
+}
+
+/* Flor base */
+.flor {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+  margin-right: 10px;
+    }
+
+.petalo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50% 50% 0 0;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform-origin: bottom center;
+  z-index: 1;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+}
+
+.petalo:nth-child(1) { transform: rotate(0deg) translateX(-50%); }
+.petalo:nth-child(2) { transform: rotate(60deg) translateX(-50%); }
+.petalo:nth-child(3) { transform: rotate(120deg) translateX(-50%); }
+.petalo:nth-child(4) { transform: rotate(180deg) translateX(-50%); }
+.petalo:nth-child(5) { transform: rotate(240deg) translateX(-50%); }
+.petalo:nth-child(6) { transform: rotate(300deg) translateX(-50%); }
+
+.centro {
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at center, #bfa45a, #6f5c2f);
+  border-radius: 50%;
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  z-index: 3;
+  box-shadow: 0 0 6px 1px rgba(191,164,90, 0.5);
+}
+
+.tallo {
+  width: 10px;
+  height: 200px;
+  background: linear-gradient(to bottom, #3b6a3b, #234423);
+  border-radius: 5px;
+  position: relative;
+  top: 20px;
+  transform: rotate(5deg);
+  box-shadow: 0 0 8px rgba(35, 68, 35, 0.5);
+  z-index: 0;
+}
+
+/* Lluvia */
+#lluvia {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+  z-index: 9999;
+}
+.gota {
+  position: absolute;
+  width: auto;
+  height: 15px;
+  animation-name: caer;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  opacity: 0; /* inicia invisible */
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+}
+
+@keyframes caer {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Pasto */
+.pasto {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 120vw;
+  height: 220px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 10px;
+  pointer-events: none;
+  background: transparent;
+  z-index: 1;
+  gap: 2px;
+}
+
+.hoja-pasto {
+  width: 4px;
+  height: 70px;
+  background-color: #3f5139;
+  border-radius: 3px 3px 0 0;
+  transform-origin: bottom center;
+  animation: moverPasto 3s ease-in-out infinite alternate;
+  box-shadow: inset 0 0 4px #2e3a28;
+}
+
+/* Variaciones para realismo */
+.hoja-pasto:nth-child(3n) {
+  height: 50px;
+  animation-duration: 3.5s;
+  transform: rotate(10deg);
+}
+.hoja-pasto:nth-child(5n) {
+  height: 45px;
+  animation-duration: 2.8s;
+  transform: rotate(-10deg);
+}
+.hoja-pasto:nth-child(7n) {
+  height: 55px;
+  animation-duration: 3.8s;
+  transform: rotate(7deg);
+}
+.hoja-pasto:nth-child(11n) {
+  height: 40px;
+  animation-duration: 3.1s;
+  transform: rotate(-7deg);
+}
+
+@keyframes moverPasto {
+  0% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(-5deg);
+  }
+}
+.nubes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 200px;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.nube {
+  position: absolute;
+  bottom: 20px;
+  background: #d6dbe0;
+  border-radius: 100px;
+  opacity: 0.8;
+  filter: blur(2px);
+  animation: flotarNubeAncha 60s linear infinite;
+}
+
+/* Crea una nube con varios bultitos */
+.nube::before,
+.nube::after {
+  content: '';
+  position: absolute;
+  background: #d6dbe0;
+  border-radius: 100px;
+  opacity: 0.8;
+  filter: blur(2px);
+}
+
+.nube::before {
+  width: 150px;
+  height: 100px;
+  top: -30px;
+  left: 60px;
+}
+
+.nube::after {
+  width: 120px;
+  height: 80px;
+  top: -10px;
+  left: 140px;
+}
+
+/* Animación lenta, como flotando */
+@keyframes flotarNubeAncha {
+  0% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(110vw);
+  }
+}
